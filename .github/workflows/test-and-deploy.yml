@@ -21,13 +21,13 @@ jobs:
         run: sleep 1m
 
       - name: setup db
-        run: docker-compose run --rm backend rails db:create db:migrate
+        run: docker-compose run --rm api rails db:create db:migrate
 
       - name: rspec
-        run: docker-compose run --rm backend rspec
+        run: docker-compose run --rm api rspec
 
       - name: rubocop
-        run: docker-compose run --rm backend rubocop
+        run: docker-compose run --rm api rubocop
 
       - name: docker-compose down
         run: docker-compose down
