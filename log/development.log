@@ -1,0 +1,9 @@
+  [1m[35m (15.5ms)[0m  [1m[35mCREATE DATABASE `shikaku_development` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (20.4ms)[0m  [1m[35mCREATE DATABASE `shikaku_test` DEFAULT CHARACTER SET `utf8mb4`[0m
+Started GET "/" for 172.21.0.1 at 2022-12-25 11:28:41 +0000
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/bundle/gems/railties-7.0.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/bundle/gems/railties-7.0.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 27.0ms | Allocations: 585)
+Completed 200 OK in 291ms (Views: 115.1ms | ActiveRecord: 0.0ms | Allocations: 4515)
+
+

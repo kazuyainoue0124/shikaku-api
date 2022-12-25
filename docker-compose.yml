@@ -1,0 +1,43 @@
+version: '3'
+services:
+  db:
+    image: mysql:8.0.31
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: root
+    ports:
+      - '3306:3306'
+    container_name: shikaku-db
+    volumes:
+      - ./tmp/db:/var/lib/mysql
+
+  api:
+    build: ./
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: root
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    container_name: shikaku-rails
+    volumes:
+      - ./:/shikaku/
+      - gem_data:/usr/local/bundle
+    ports:
+      - "3001:3000"
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true
+
+  api-nginx:
+    build: ./nginx/
+    container_name: shikaku-rails-nginx
+    volumes:
+      - ./:/shikaku/
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+
+volumes:
+  gem_data:
+    driver: local
