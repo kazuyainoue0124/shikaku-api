@@ -11,7 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: docker-compose build
+      - name: docker-compose build --no-cache
         run: docker-compose build
 
       - name: docker-compose up -d
