@@ -14,8 +14,8 @@ jobs:
       - name: docker-compose build
         run: docker-compose build
 
-      - name: docker-compose up
-        run: docker-compose up
+      - name: docker-compose up -d
+        run: docker-compose up -d
 
       - name: 状況確認用
         run: docker ps -a
