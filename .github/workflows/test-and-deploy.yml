@@ -15,7 +15,7 @@ jobs:
         run: docker-compose build
 
       - name: docker-compose up(テスト)
-        run: docker-compose up(テスト)
+        run: docker-compose up
 
       - name: 状況確認用
         run: docker ps -a
