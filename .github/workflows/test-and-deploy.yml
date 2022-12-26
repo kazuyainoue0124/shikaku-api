@@ -11,11 +11,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: docker-compose build --no-cache
+      - name: docker-compose build
         run: docker-compose build
 
-      - name: docker-compose up(テスト)
-        run: docker-compose up
+      - name: docker-compose up -d
+        run: docker-compose up -d
 
       - name: 状況確認用
         run: docker ps -a
