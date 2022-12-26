@@ -9,7 +9,7 @@ services:
       - '3306:3306'
     container_name: shikaku-db
     volumes:
-      - ./tmp/db:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
 
   api:
     build: ./
@@ -39,5 +39,6 @@ services:
       - api
 
 volumes:
+  mysql_data:
   gem_data:
     driver: local

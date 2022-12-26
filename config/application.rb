@@ -21,7 +21,13 @@ module Shikaku
 
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
-    # Skip views, helpers and assets when generating a new resource.
+    # Skip views, helpersand assets when generating a new resource.
     config.api_only = true
+
+    #　以下の記述を追記する(設定必須)
+    # デフォルトのlocaleを日本語(:ja)にする
+    config.i18n.default_locale = :ja
+    # I18nライブラリに訳文の探索場所を指示する
+    config.i18n.load_path += Dir[Rails.root.join('config/locales/**/*.yml').to_s]
   end
 end
