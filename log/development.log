@@ -230,3 +230,41 @@ Migrating to AddPasswordDigestToUsers (20221226113316)
   [1m[36mActiveRecord::InternalMetadata Load (1.4ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
   [1m[35m (0.8ms)[0m  [1m[34mSELECT RELEASE_LOCK('8630921392664642190')[0m
   [1m[36mActiveRecord::SchemaMigration Pluck (1.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Started GET "/" for 172.20.0.1 at 2022-12-27 01:50:03 +0000
+  [1m[36mActiveRecord::SchemaMigration Pluck (85.8ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/bundle/gems/railties-7.0.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/bundle/gems/railties-7.0.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 14.2ms | Allocations: 476)
+Completed 200 OK in 104ms (Views: 36.1ms | ActiveRecord: 0.0ms | Allocations: 3173)
+
+
+Started POST "/users" for 172.20.0.1 at 2022-12-27 02:12:30 +0000
+Processing by UsersController#create as */*
+  Parameters: {"user_name"=>"さくまです", "email"=>"sakuma@example.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:4:in `create'
+  [1m[36mUser Exists? (5.9ms)[0m  [1m[34mSELECT 1 AS one FROM `users` WHERE `users`.`email` = 'sakuma@example.com' LIMIT 1[0m
+  ↳ app/controllers/users_controller.rb:4:in `create'
+  [1m[36mUser Create (1.2ms)[0m  [1m[32mINSERT INTO `users` (`user_name`, `email`, `created_at`, `updated_at`, `password_digest`) VALUES ('さくまです', 'sakuma@example.com', '2022-12-27 02:12:31.373523', '2022-12-27 02:12:31.373523', '$2a$12$9mR5nilHU7lDg46xj1OLseSPTij5U.zEo5lmaztqDFBF/3ShvjYoW')[0m
+  ↳ app/controllers/users_controller.rb:4:in `create'
+  [1m[36mTRANSACTION (10.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:4:in `create'
+Completed 200 OK in 616ms (Views: 1.4ms | ActiveRecord: 32.2ms | Allocations: 10890)
+
+
+Started GET "/" for 172.21.0.1 at 2022-12-27 06:15:04 +0000
+  [1m[36mActiveRecord::SchemaMigration Pluck (23.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/bundle/gems/railties-7.0.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/bundle/gems/railties-7.0.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 10.9ms | Allocations: 476)
+Completed 200 OK in 100ms (Views: 31.4ms | ActiveRecord: 0.0ms | Allocations: 3170)
+
+
+Started GET "/" for 172.22.0.1 at 2022-12-27 08:28:19 +0000
+  [1m[36mActiveRecord::SchemaMigration Pluck (29.1ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/bundle/gems/railties-7.0.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/bundle/gems/railties-7.0.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 5.5ms | Allocations: 476)
+Completed 200 OK in 50ms (Views: 19.1ms | ActiveRecord: 0.0ms | Allocations: 3170)
+
+
