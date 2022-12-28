@@ -78,4 +78,4 @@ Metrics/BlockLength:
 # Rubocopはコンパクト記法ではなくネスト記法を推奨
 Style/ClassAndModuleChildren:
   Exclude:
-    - 'app/controllers/api/v1/*'
+    - 'app/controllers/*'
