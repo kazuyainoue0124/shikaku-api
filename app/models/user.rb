@@ -1,4 +1,13 @@
 class User < ApplicationRecord
+  has_many :posts, dependent: :destroy
+
+  has_many :bookmarks, dependent: :destroy
+
+  has_many :active_follows, class_name: 'Follow', foreign_key: :send_follow_id, dependent: :destroy, inverse_of: 'send_follow_user'
+  has_many :passive_follows, class_name: 'Follow', foreign_key: :receive_follow_id, dependent: :destroy, inverse_of: 'receive_follow_user'
+  has_many :receive_follow_users, through: :active_follows, source: :receive_follow_user # 自分がフォローしたユーザー
+  has_many :send_follow_users, through: :passive_follows, source: :send_follow_user # 自分をフォローしたユーザー
+
   validates :user_name, presence: true, length: { maximum: 15 }
 
   before_save { self.email = email.downcase }
