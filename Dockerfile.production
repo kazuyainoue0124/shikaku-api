@@ -15,7 +15,7 @@ COPY . /shikaku
 
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["entrypoint-production.sh"]
 EXPOSE 3001
 
 # USER app
