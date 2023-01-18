@@ -1,7 +1,7 @@
 version: '3'
 services:
   db:
-    image: mysql:8.0.31
+    image: mysql:8.0.23
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: root
@@ -12,7 +12,7 @@ services:
       - mysql_data:/var/lib/mysql
 
   api:
-    build: ./
+    build: .
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: root
@@ -21,6 +21,9 @@ services:
     volumes:
       - ./:/shikaku/
       - gem_data:/usr/local/bundle
+      # - public-data:/shikaku/public
+      # - tmp-data:/shikaku/tmp
+      # - log-data:/shikaku/log
     ports:
       - "3001:3000"
     depends_on:
@@ -28,17 +31,22 @@ services:
     stdin_open: true
     tty: true
 
-  api-nginx:
-    build: ./nginx/
-    container_name: shikaku-rails-nginx
-    volumes:
-      - ./:/shikaku/
-    ports:
-      - "8080:80"
-    depends_on:
-      - api
+  # api-nginx:
+  #   build:
+  #     context: ./nginx
+  #   container_name: shikaku-rails-nginx
+  #   volumes:
+  #     - public-data:/shikaku/public
+  #     - tmp-data:/shikaku/tmp
+  #   ports:
+  #     - "8080:80"
+  #   depends_on:
+  #     - api
 
 volumes:
   mysql_data:
   gem_data:
+  public-data:
+  tmp-data:
+  log-data:
     driver: local
