@@ -1,5 +1,5 @@
 FROM nginx:1.20.1
 
-RUN rm /etc/nginx/conf.d/default.conf
-COPY default.conf /etc/nginx/conf.d
-CMD ["/usr/sbin/nginx", "-g", "daemon off;", "-c", "/etc/nginx/conf.d/default.conf"]
+RUN rm -f /etc/nginx/conf.d/*
+COPY /nginx/default.conf /etc/nginx/conf.d/shikaku.conf
+CMD ["/usr/sbin/nginx", "-g", "daemon off;", "-c", "/etc/nginx/nginx.conf"]
