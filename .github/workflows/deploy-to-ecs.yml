@@ -58,9 +58,9 @@ jobs:
           # Build a docker container and
           # push it to ECR so that it can
           # be deployed to ECS.
-          docker build -t $RAILS_ECR_REGISTRY/$RAILS_ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $RAILS_ECR_REGISTRY/$RAILS_ECR_REPOSITORY:$IMAGE_TAG
-          echo "::set-output name=image::$RAILS_ECR_REGISTRY/$RAILS_ECR_REPOSITORY:$IMAGE_TAG"
+          docker build -t $ECR_REGISTRY/$RAILS_ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$RAILS_ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$RAILS_ECR_REPOSITORY:$IMAGE_TAG"
 
       - name: Build, tag, and push image to Amazon ECR for nginx
         id: build-nginx-image
@@ -71,9 +71,9 @@ jobs:
           # Build a docker container and
           # push it to ECR so that it can
           # be deployed to ECS.
-          docker build -t $NGINX_ECR_REGISTRY/$NGINX_ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $NGINX_ECR_REGISTRY/$NGINX_ECR_REPOSITORY:$IMAGE_TAG
-          echo "::set-output name=image::$NGINX_ECR_REGISTRY/$NGINX_ECR_REPOSITORY:$IMAGE_TAG"
+          docker build -t $ECR_REGISTRY/$NGINX_ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$NGINX_ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$NGINX_ECR_REPOSITORY:$IMAGE_TAG"
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
