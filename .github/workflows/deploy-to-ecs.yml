@@ -87,7 +87,7 @@ jobs:
         id: task-def-nginx
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: ${{ env.ECS_TASK_DEFINITION }}
+          task-definition: ${{ steps.task-def-rails.outputs.task-definition }}
           container-name: ${{ env.NGINX_CONTAINER_NAME }}
           image: ${{ steps.build-nginx-image.outputs.image }}
 
