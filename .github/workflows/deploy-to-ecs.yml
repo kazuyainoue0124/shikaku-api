@@ -50,7 +50,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Build, tag, and push image to Amazon ECR for Rails
-        id: build-rails-image
+        id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
@@ -59,21 +59,11 @@ jobs:
           # push it to ECR so that it can
           # be deployed to ECS.
           docker build -t $ECR_REGISTRY/$RAILS_ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$RAILS_ECR_REPOSITORY:$IMAGE_TAG
-          echo "::set-output name=image::$ECR_REGISTRY/$RAILS_ECR_REPOSITORY:$IMAGE_TAG"
-
-      - name: Build, tag, and push image to Amazon ECR for nginx
-        id: build-nginx-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          # Build a docker container and
-          # push it to ECR so that it can
-          # be deployed to ECS.
           docker build -t $ECR_REGISTRY/$NGINX_ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$RAILS_ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$NGINX_ECR_REPOSITORY:$IMAGE_TAG
-          echo "::set-output name=image::$ECR_REGISTRY/$NGINX_ECR_REPOSITORY:$IMAGE_TAG"
+          echo "::set-output name=rails-image::$ECR_REGISTRY/$RAILS_ECR_REPOSITORY:$IMAGE_TAG"
+          echo "::set-output name=nginx-image::$ECR_REGISTRY/$NGINX_ECR_REPOSITORY:$IMAGE_TAG"
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def-rails
@@ -81,7 +71,7 @@ jobs:
         with:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.RAILS_CONTAINER_NAME }}
-          image: ${{ steps.build-rails-image.outputs.image }}
+          image: ${{ steps.build-image.outputs.rails-image }}
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def-nginx
@@ -89,7 +79,7 @@ jobs:
         with:
           task-definition: ${{ steps.task-def-rails.outputs.task-definition }}
           container-name: ${{ env.NGINX_CONTAINER_NAME }}
-          image: ${{ steps.build-nginx-image.outputs.image }}
+          image: ${{ steps.build-image.outputs.nginx-image }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
