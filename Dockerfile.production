@@ -13,8 +13,8 @@ COPY Gemfile.lock /shikaku/Gemfile.lock
 RUN bundle install
 COPY . /shikaku
 
-COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
+COPY entrypoint-production.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint-production.sh
 ENTRYPOINT ["entrypoint-production.sh"]
 EXPOSE 3001
 
