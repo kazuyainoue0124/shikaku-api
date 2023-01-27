@@ -3,12 +3,12 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all.order(:id)
-    render json: @posts.as_json(include: :user)
+    render json: { posts: @posts.as_json(include: :user) }
   end
 
   def show
     @post = Post.find(params[:id])
-    render json: @post.as_json(include: %i[user certificate])
+    render json: { post: @post.as_json(include: %i[user certificate]) }
   end
 
   def create
