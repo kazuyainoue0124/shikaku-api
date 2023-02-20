@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         resources :sessions, only: [:index]
       end
       resources :posts
+      resources :certificates, only: [:index]
     end
   end
   # mount_devise_token_auth_for 'User', at: 'auth'
