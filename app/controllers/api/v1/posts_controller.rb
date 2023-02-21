@@ -12,7 +12,7 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.build(post_params)
+    @post = current_api_v1_user.posts.build(post_params)
     if @post.save
       render json: { status: :success }
     else
@@ -21,7 +21,7 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def update
-    @post = current_user.posts.find(params[:id])
+    @post = current_api_v1_user.posts.find(params[:id])
     if @post.update(post_params)
       render json: { status: :success, post: @post.as_json }
     else
