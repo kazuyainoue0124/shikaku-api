@@ -36,11 +36,14 @@ module Shikaku
     config.middleware.use ActionDispatch::Flash
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins '*'
+        origins 'http://localhost:8000',
+                'http://localhost:3000'
+
         resource '*',
-                 :headers => :any,
-                 :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
-                 :methods => [:get, :post, :options, :delete, :put]
+                 headers: :any,
+                 expose: %w[access-token uid client],
+                 methods: %i[get post put patch delete options head],
+                 credentials: true
       end
     end
   end
