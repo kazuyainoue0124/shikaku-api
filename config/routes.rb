@@ -34,5 +34,4 @@ Rails.application.routes.draw do
   resources :posts
   resources :sessions, only: [:create, :destroy]
   resources :certificates, only: [:index]
-  get '/', to: 'api/v1/alb#health_check'
 end
