@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       end
       resources :posts
       resources :certificates, only: [:index]
+      get 'alb/health_check', to: 'alb#health_check'
     end
   end
   # mount_devise_token_auth_for 'User', at: 'auth'
