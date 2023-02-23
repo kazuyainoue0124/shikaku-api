@@ -38,7 +38,7 @@ module Shikaku
       allow do
         origins 'http://localhost:8000',
                 'http://localhost:3000',
-                'https://shikaku.dev/'
+                'https://shikaku.dev'
 
         resource '*',
                  headers: :any,
