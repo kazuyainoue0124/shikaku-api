@@ -37,7 +37,8 @@ module Shikaku
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins 'http://localhost:8000',
-                'http://localhost:3000'
+                'http://localhost:3000',
+                'https://shikaku.dev/'
 
         resource '*',
                  headers: :any,
