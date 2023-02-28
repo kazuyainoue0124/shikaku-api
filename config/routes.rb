@@ -9,7 +9,6 @@ Rails.application.routes.draw do
       end
       resources :posts
       resources :certificates, only: [:index]
-      resources :bookmarks, except: [:update]
       get 'alb/health_check', to: 'alb#health_check'
     end
   end
