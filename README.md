@@ -1,24 +1,5 @@
-# README
+## Next.js × Ruby on RailsのSPA構成のアプリケーションを作成中です！
+[https://github.com/kazuyainoue0124/review-for-it-certifications](https://github.com/kazuyainoue0124/review-for-it-certifications)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+上記のアプリケーションの改良版を現在作成中です！
+フロントエンド側のリポジトリは[こちら](https://github.com/kazuyainoue0124/shikaku-frontend)
