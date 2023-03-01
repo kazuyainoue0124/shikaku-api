@@ -2,7 +2,11 @@ class Api::V1::PostsController < ApplicationController
   before_action :authenticate_api_v1_user!, only: %i[create update]
 
   def index
-    @posts = Post.all.order(:id)
+    @posts = if params[:user_id].nil?
+               Post.all.order(:id)
+             else
+               Post.find_by(user_id: params[:user_id])
+             end
     render json: { posts: @posts.as_json(include: :user) }
   end
 

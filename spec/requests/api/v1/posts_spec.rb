@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Posts", type: :request do
+RSpec.describe 'Api::V1::Posts', type: :request do
   describe 'GET #index' do
     let!(:user1) { create(:user) }
     let!(:user2) { create(:user) }
@@ -47,17 +47,17 @@ RSpec.describe "Api::V1::Posts", type: :request do
 
     context 'ログイン済' do
       it '記事を作成する' do
-        expect {
+        expect do
           post '/api/v1/posts', params: valid_params, headers: token
-        }.to change(Post, :count).by(1)
+        end.to change(Post, :count).by(1)
         expect(response).to have_http_status(:ok)
         expect(JSON.parse(response.body)['status']).to eq('success')
       end
 
       it 'パラメータに誤りがある場合は記事の作成に失敗する' do
-        expect {
+        expect do
           post '/api/v1/posts', params: { title: '' }, headers: token
-        }.not_to change(Post, :count)
+        end.not_to change(Post, :count)
         expect(response).to have_http_status(:ok)
         expect(JSON.parse(response.body)['status']).to eq('error')
       end
@@ -71,34 +71,33 @@ RSpec.describe "Api::V1::Posts", type: :request do
     end
   end
 
-  describe "PUT #update" do
+  describe 'PUT #update' do
     let!(:user) { create(:user) }
     let(:token) { sign_in user }
     let(:old_post) { create(:post, user_id: user.id) }
 
-    context "ログイン済" do
-      it "記事を更新する" do
-        put "/api/v1/posts/#{old_post.id}", params: { title: "New Title" }, headers: token
-        expect(old_post.reload.title).to eq("New Title")
+    context 'ログイン済' do
+      it '記事を更新する' do
+        put "/api/v1/posts/#{old_post.id}", params: { title: 'New Title' }, headers: token
+        expect(old_post.reload.title).to eq('New Title')
       end
 
-      it "ステータスコード200を返す" do
-        put "/api/v1/posts/#{old_post.id}", params: { title: "New Title" }, headers: token
+      it 'ステータスコード200を返す' do
+        put "/api/v1/posts/#{old_post.id}", params: { title: 'New Title' }, headers: token
         expect(response).to have_http_status(:success)
       end
     end
 
-    context "未ログイン" do
-      it "記事の更新に失敗する" do
-        put "/api/v1/posts/#{old_post.id}", params: { title: "New Title" }
-        expect(old_post.reload.title).to_not eq("New Title")
+    context '未ログイン' do
+      it '記事の更新に失敗する' do
+        put "/api/v1/posts/#{old_post.id}", params: { title: 'New Title' }
+        expect(old_post.reload.title).to_not eq('New Title')
       end
 
-      it "ログインを要求する" do
-        put "/api/v1/posts/#{old_post.id}", params: { title: "New Title" }
+      it 'ログインを要求する' do
+        put "/api/v1/posts/#{old_post.id}", params: { title: 'New Title' }
         expect(response).to have_http_status(:unauthorized)
       end
     end
-
   end
 end
