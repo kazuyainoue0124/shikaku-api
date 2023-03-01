@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Bookmarks", type: :request do
-  describe "GET /index" do
+RSpec.describe 'Api::V1::Bookmarks', type: :request do
+  describe 'GET /index' do
     let!(:user) { create(:user) }
     let!(:token) { sign_in user }
-    
+
     context 'ログイン済' do
       it 'ブックマークを全件取得する' do
         create_list(:bookmark, 3, user_id: user.id)
@@ -12,7 +12,7 @@ RSpec.describe "Api::V1::Bookmarks", type: :request do
         expect(response).to have_http_status(:ok)
         expect(JSON.parse(response.body)['bookmarks'].size).to eq(3)
       end
-      
+
       it 'ログインユーザーのブックマークを返す' do
         create_list(:bookmark, 3, user_id: user.id)
         get '/api/v1/bookmarks', headers: token
@@ -39,17 +39,17 @@ RSpec.describe "Api::V1::Bookmarks", type: :request do
 
     context 'ログイン済' do
       it 'ブックマークを作成する' do
-        expect {
+        expect do
           post '/api/v1/bookmarks', params: { user_id: user.id, post_id: new_post.id }, headers: token
-        }.to change(Bookmark, :count).by(1)
+        end.to change(Bookmark, :count).by(1)
         expect(response).to have_http_status(:ok)
         expect(JSON.parse(response.body)['status']).to eq('success')
       end
 
       it 'パラメータに誤りがある場合はブックマークの作成に失敗する' do
-        expect {
+        expect do
           post '/api/v1/bookmarks', params: { user_id: user.id, post_id: nil }, headers: token
-        }.not_to change(Bookmark, :count)
+        end.not_to change(Bookmark, :count)
         expect(response).to have_http_status(:ok)
         expect(JSON.parse(response.body)['status']).to eq('error')
       end
@@ -66,14 +66,14 @@ RSpec.describe "Api::V1::Bookmarks", type: :request do
   describe 'DELETE #destroy' do
     let!(:user) { create(:user) }
     let!(:new_post) { create(:post) }
-    let!(:bookmark) { create(:bookmark, user: user, post: new_post) }
+    let!(:bookmark) { create(:bookmark, user:, post: new_post) }
     let!(:token) { sign_in user }
 
     context 'ログイン済' do
       it 'ブックマークを外す' do
-        expect {
+        expect do
           delete "/api/v1/bookmarks/#{bookmark.id}", params: { user_id: user.id, post_id: new_post.id }, headers: token
-        }.to change(Bookmark, :count).by(-1)
+        end.to change(Bookmark, :count).by(-1)
         expect(response).to have_http_status(:ok)
         expect(JSON.parse(response.body)['status']).to eq('success')
       end
@@ -84,7 +84,6 @@ RSpec.describe "Api::V1::Bookmarks", type: :request do
         delete "/api/v1/bookmarks/#{bookmark.id}", params: { user_id: user.id, post_id: new_post.id }
         expect(response).to have_http_status(:unauthorized)
       end
-
     end
   end
 end

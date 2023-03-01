@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Certificates", type: :request do
-  describe "GET /index" do
+RSpec.describe 'Api::V1::Certificates', type: :request do
+  describe 'GET /index' do
     let!(:certificate1) { create(:certificate) }
     let!(:certificate2) { create(:certificate) }
 

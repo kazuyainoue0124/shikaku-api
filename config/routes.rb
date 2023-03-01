@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       namespace :auth do
         resources :sessions, only: [:index]
       end
+      resources :users, only: [:show]
       resources :posts
       resources :certificates, only: [:index]
       resources :bookmarks, except: [:update]
