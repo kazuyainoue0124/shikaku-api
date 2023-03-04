@@ -3,10 +3,10 @@ class Api::V1::PostsController < ApplicationController
 
   def index
     @posts = if params[:user_id].nil?
-               Post.all.order(:id)
-             else
-               Post.find_by(user_id: params[:user_id])
-             end
+              Post.all.order(:id)
+            else
+              Post.where(user_id: params[:user_id])
+            end
     render json: { posts: @posts.as_json(include: :user) }
   end
 
